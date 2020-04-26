@@ -17,19 +17,25 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Add Repository
+      run: sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
+    - name: Update
+      run: sudo apt-get update -q
+    - name: Add Compiler
+      run: sudo apt-get install gcc-arm-embedded -y
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: Anthophila/codeql-action/codeql/init@master
       # Override language selection by uncommenting this and choosing your languages
-      # with:
-      #   languages: go, javascript, csharp, python, cpp, java
+      with:
+         languages: cpp
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see bellow)
     # custom build steps.
-    - name: Autobuild
-      uses: Anthophila/codeql-action/codeql/autobuild@master
+    #- name: Autobuild
+    #  uses: Anthophila/codeql-action/codeql/autobuild@master
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
@@ -38,9 +44,8 @@ jobs:
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
 
-    #- run: |
-    #   make bootstrap
-    #   make release
+    - run: |
+         cd board/TencentOS_tiny_EVB_MX/GCC/hello_world && make
 
     - name: Perform CodeQL Analysis
       uses: Anthophila/codeql-action/codeql/finish@master
