@@ -1,0 +1,22 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Before Install
+      run: sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
+       -  sudo apt-get update -q
+       -  sudo apt-get install gcc-arm-embedded -y
+    - name: make
+      run: cd board/TencentOS_tiny_EVB_MX/GCC/hello_world
+       -  make
