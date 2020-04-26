@@ -13,10 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Before Install
+    - name: Add Repository
       run: sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
-       -  sudo apt-get update -q
-       -  sudo apt-get install gcc-arm-embedded -y
+    - name: Update
+      run: sudo apt-get update -q
+    - name: Add Compiler
+      run: sudo apt-get install gcc-arm-embedded -y
     - name: make
-      run: cd board/TencentOS_tiny_EVB_MX/GCC/hello_world
-       -  make
+      run: cd board/TencentOS_tiny_EVB_MX/GCC/hello_world && make
